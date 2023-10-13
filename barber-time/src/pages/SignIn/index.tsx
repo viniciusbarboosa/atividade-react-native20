@@ -1,16 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { StyleSheet, Text, View, StatusBar, Image, TextInput, TouchableOpacity } from 'react-native';
 
+import { AuthContext } from '../../contents/AuthContext.'
+
 export default function SignIn(){
+    const { signIn } = useContext(AuthContext);
     const [email,setEmail] = useState('');
     const [password,setPassword] = useState('');
 
-    function fazerLogin(){
+    async function fazerLogin(){
         if(email === '' || password === ''){
             return;
         }
 
-        console.log("TESTE"+email);
+        await signIn({email,password})
     }
 
     return(
@@ -19,7 +22,7 @@ export default function SignIn(){
                 style={styles.logo}
                 source={require('../../assets/img/logoteste.jpg')}
             />
-
+            
         <View style={styles.inputContainer}>
             <TextInput
                 placeholder='Digite seu email' style={styles.input}
